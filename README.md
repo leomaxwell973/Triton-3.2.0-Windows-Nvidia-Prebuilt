@@ -82,3 +82,5 @@ pip install .\Triton-3.2.0-cp310-cp310-win_amd64.whl
 This build is designed **specifically for Windows users with NVIDIA hardware**, eliminating unnecessary dependencies and optimizing performance. If you're developing **AI models on Windows and need a clean Triton setup without AMD bloat or Linux workarounds**, or have had difficulty building triton for Windows, this is **the best version available.**  
 
 🔥 **Enjoy the cleanest, fastest Triton experience on Windows!** 🚀😎
+
+If you'd like to show appreciation (donate) for this work: https://buymeacoffee.com/leomaxwell
