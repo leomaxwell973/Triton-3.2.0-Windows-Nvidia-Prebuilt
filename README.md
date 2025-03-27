@@ -19,6 +19,9 @@ CPython | PyTorch | Torchvision
 
 3.12 | [Download](https://huggingface.co/w-e-w/torch-2.6.0-cu128.nv/resolve/main/torch-2.6.0+cu128.nv-cp312-cp312-win_amd64.whl) | [Download](https://huggingface.co/w-e-w/torch-2.6.0-cu128.nv/resolve/main/torchvision-0.20.0a0+cu128.nv-cp312-cp312-win_amd64.whl)
 
+Any updates to this update as well as experimental fixes will be here:
+[Triton 3.2.0 AttrsDesc Issue and Potential fixes](https://github.com/leomaxwell973/Triton-3.2.0-Windows-Nvidia-Prebuilt/wiki/Triton-3.2.0-AttrsDescriptor-issue-topic.)
+
 ### - END CRITIACAL UPDATE
 
 
