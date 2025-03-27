@@ -1,6 +1,27 @@
 # **Triton (V3.2.0) Windows Native Build – NVIDIA Exclusive**
 ### **🚀 Fully Native Windows Build (No VMs, No Linux Subsystems, No Workarounds)**
 
+### - CRITICAL UPDATE READ BEFORE INSTALLING!
+
+In Triton 3.2.0 there is MASSIVE backend changes, a big one to note is that AttrsDescriptor and other functions and calls are gone, like get_dict, get_hint I beleive are gone too, with NO 1:1 standin replacing them as it is a entire backbone change that integrates all those removed into existing systems, I.E. libtriotn.pyd etc.
+
+What this means is, you will need the BLEEDING EDGE as of 3/2025 so that your software, most likely and notably PYTORCH needs to either have a EXPERIMENTAL BUILD, not --- I say again as of writing this -- NOT -- Nightly, but experimental, as the pip installs were not up to date for me, check Nvidia, or HuggingFace, or if you fancy use the links I provide here.
+
+This is not a bug with this build, its technically not a bug with triton or torch or anyone, this is just a version creep spasm.
+
+CPython | PyTorch | Torchvision
+
+----------|----------|----------
+
+3.10 | [Download](https://huggingface.co/w-e-w/torch-2.6.0-cu128.nv/resolve/main/torch-2.6.0+cu128.nv-cp310-cp310-win_amd64.whl) | [Download](https://huggingface.co/w-e-w/torch-2.6.0-cu128.nv/resolve/main/torchvision-0.20.0a0+cu128.nv-cp310-cp310-win_amd64.whl)
+
+3.11 | [Download](https://huggingface.co/w-e-w/torch-2.6.0-cu128.nv/resolve/main/torch-2.6.0+cu128.nv-cp311-cp311-win_amd64.whl) | [Download](https://huggingface.co/w-e-w/torch-2.6.0-cu128.nv/resolve/main/torch-2.6.0+cu128.nv-cp311-cp311-win_amd64.whl)
+
+3.12 | [Download](https://huggingface.co/w-e-w/torch-2.6.0-cu128.nv/resolve/main/torch-2.6.0+cu128.nv-cp312-cp312-win_amd64.whl) | [Download](https://huggingface.co/w-e-w/torch-2.6.0-cu128.nv/resolve/main/torchvision-0.20.0a0+cu128.nv-cp312-cp312-win_amd64.whl)
+
+### - END CRITIACAL UPDATE
+
+
 This is a **fully native** Triton build for **Windows + NVIDIA**, compiled **without any virtualized Linux environments** (no WSL, no Cygwin, no MinGW hacks). This version is built **entirely with MSVC**, ensuring **maximum compatibility, performance, and stability** for Windows users.  
 
 🔥 **What Makes This Build Special?**  
