@@ -1,4 +1,26 @@
 # **Triton (V3.2.0) Windows Native Build – NVIDIA Exclusive**
+
+# UPDATE BUILD_2:
+- There were issues with how the post-compile code ran as well as some overlooked hardcoded variables and paths that needed to be patched. 
+
+- As of this version and my testing, there is no longer a need to modify torch for the AttrsDescriptor issue(s). 
+    - This was tested with a fresh install of Torch, unmodified with the new version.
+
+- Previous issues such as libcuda.so.1 not found or failed to open should be resolved for the most part
+    - Exception: Proton, proton/libproton/proton.dll has an overlooked hardcoded pathing looking for libcuda.so.1, this is fixed by the following:
+    (Administrator CMD prompt):
+    `MKLINK C:\Windows\System32\libcuda.so.1 C:\Windows\System32\nvcuda.dll`
+    This seems to be only necessary for when the proton/profiling routines are used, I'm not 100% sure how necessary it is, but even so, python test_trition.py, triton_test.py and runtest.py all run with "python <script.py>" successfully, and test_trition and trition_test will fail if attempted to run via proton, as described above, and runtest.py i don't think is applicable, point being, Triton will run without this symlink, proton will not, but, just make the symlink to restore full functionality... this may be fixed if I recompile in the future and find where this oops ended up to fix the hardcoded pathing.
+    
+- New Tests:
+Included are the testing files i used to work out these bugs, in _C and the root folder: triton_test.py, test_triton.py and runtest.py. you can use these as a quick check to see if you're operational with Triton on windows. The output should be straightforward with no errors (runtest.py just outputs a ms time score). 
+These tests are ran with either "Python <test.py name/path>" or if you have the symlink fix above done AND have the proton files in your python scripts folder (or other path) "proton <test.py name/path>".
+
+- Included proton.exe and proton-viewer.exe scripts:
+I realized that without running the compile from source routine, these would be missing from python/Scripts, if you are wanting proton / full functionality add these to the Scripts folder of your python instance.
+
+---------------------------------------------------
+
 ### **🚀 Fully Native Windows Build (No VMs, No Linux Subsystems, No Workarounds)**
 
 ### - CRITICAL UPDATE READ BEFORE INSTALLING!
