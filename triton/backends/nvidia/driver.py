@@ -12,11 +12,18 @@ from triton.backends.compiler import GPUTarget
 from triton.backends.driver import GPUDriver
 
 # CUDA paths for Windows
-CUDA_ROOT = r"C:\CUDA\v12.1"
+
+dirname = os.path.dirname(os.path.realpath(__file__))
+CUDA_ROOT = os.path.join(dirname, "%CUDA_PATH%") if "%CUDA_PATH%" else None
+CUDA_ROOT = os.path.join(dirname, "%CUDA_HOME%") if "%CUDA_HOME%" else None
+if CUDA_ROOT is None:
+    print("WARNING TRITON USER:  a script in driver.py for Nvidia is unable to locate CUDA_HOME or CUDA_PATH, if CUDA fails, start by setting these.")
+    print("You can supress this warning/fix by setting one of these CUDA env variables.")
+
 CUDA_BIN = os.path.join(CUDA_ROOT, "bin")
 CUDA_LIB64 = os.path.join(CUDA_ROOT, "lib", "x64")
 
-dirname = os.path.dirname(os.path.realpath(__file__))
+
 include_dir = [os.path.join(dirname, "include")]
 libdevice_dir = os.path.join(dirname, "lib")
 libraries = ["cuda"]
@@ -209,7 +216,7 @@ def make_launcher(constants, signature):
 #include \"cuda.h\"
 #include <stdbool.h>
 #include <Python.h>
-#include <dlfcn.h>
+#include <windows.h>
 
 static inline void gpuAssert(CUresult code, const char *file, int line)
 {{
@@ -233,21 +240,21 @@ static inline void gpuAssert(CUresult code, const char *file, int line)
 typedef CUresult (*cuLaunchKernelEx_t)(const CUlaunchConfig* config, CUfunction f, void** kernelParams, void** extra);
 
 static cuLaunchKernelEx_t getLaunchKernelExHandle() {{
-  // Open the shared library
-  void* handle = dlopen("libcuda.so.1", RTLD_LAZY);
+  HMODULE handle = LoadLibraryA("nvcuda.dll");
   if (!handle) {{
-    PyErr_SetString(PyExc_RuntimeError, "Failed to open libcuda.so.1");
+    PyErr_SetString(PyExc_RuntimeError, "Failed to open nvcuda.dll");
     return NULL;
   }}
-  // Clear any existing error
-  dlerror();
-  cuLaunchKernelEx_t cuLaunchKernelExHandle = (cuLaunchKernelEx_t)dlsym(handle, "cuLaunchKernelEx");
+  
+  // Get function pointer using Windows API
+  cuLaunchKernelEx_t cuLaunchKernelExHandle = (cuLaunchKernelEx_t)GetProcAddress(handle, "cuLaunchKernelEx");
+  
   // Check for errors
-  const char *dlsym_error = dlerror();
-  if (dlsym_error) {{
-    PyErr_SetString(PyExc_RuntimeError, "Failed to retrieve cuLaunchKernelEx from libcuda.so.1");
+  if (cuLaunchKernelExHandle == NULL) {{
+    PyErr_SetString(PyExc_RuntimeError, "Failed to retrieve cuLaunchKernelEx from nvcuda.dll");
     return NULL;
   }}
+  
   return cuLaunchKernelExHandle;
 }}
 

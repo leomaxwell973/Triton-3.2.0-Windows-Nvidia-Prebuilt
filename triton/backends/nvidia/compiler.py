@@ -33,11 +33,11 @@ def min_dot_size(target: GPUTarget):
 @functools.lru_cache()
 def _path_to_binary(binary: str):
     binary += sysconfig.get_config_var("EXE")
-    paths = [
-        os.environ.get(f"TRITON_{binary.upper()}_PATH", ""),
-        os.path.join(os.path.dirname(__file__), "bin", binary),
-    ]
-
+    paths = [      
+            os.environ.get(f"TRITON_{binary.upper()}_PATH", ""),
+            os.path.join(os.path.dirname(__file__), "bin", binary),
+        ]
+  
     for path in paths:
         if os.path.exists(path) and os.path.isfile(path):
             result = subprocess.check_output([path, "--version"], stderr=subprocess.STDOUT)
@@ -397,15 +397,41 @@ class CUDABackend(BaseBackend):
             ptxas_cmd = [ptxas, *line_info, *fmad, '-v', *opt_level, f'--gpu-name={arch}', fsrc.name, '-o', fbin]
             try:
                 subprocess.run(ptxas_cmd, check=True, close_fds=False, stderr=flog)
-                if os.path.exists(fsrc.name):
-                    os.remove(fsrc.name)
-                if os.path.exists(flog.name):
-                    os.remove(flog.name)
+                # Read the binary before attempting to remove any files
+                with open(fbin, 'rb') as f:
+                    cubin = f.read()
+                    
+                # Try to cleanup files, but don't fail if we can't
+                try:
+                    if os.path.exists(fsrc.name):
+                        os.remove(fsrc.name)
+                except PermissionError:
+                    # On Windows, the file might still be in use
+                    pass
+                    
+                try:
+                    if os.path.exists(flog.name):
+                        os.remove(flog.name)
+                except PermissionError:
+                    pass
+                    
+                try:    
+                    if os.path.exists(fbin):
+                        os.remove(fbin)
+                except PermissionError:
+                    pass
+                    
+                return cubin
+                
             except subprocess.CalledProcessError as e:
                 with open(flog.name) as log_file:
                     log = log_file.read()
-                if os.path.exists(flog.name):
-                    os.remove(flog.name)
+                
+                try:
+                    if os.path.exists(flog.name):
+                        os.remove(flog.name)
+                except PermissionError:
+                    pass
 
                 if e.returncode == 255:
                     error = 'Internal Triton PTX codegen error'
@@ -417,12 +443,6 @@ class CUDABackend(BaseBackend):
                 raise PTXASError(f"{error}\n"
                                  f"`ptxas` stderr:\n{log}\n"
                                  f'Repro command: {" ".join(ptxas_cmd)}\n')
-
-            with open(fbin, 'rb') as f:
-                cubin = f.read()
-            if os.path.exists(fbin):
-                os.remove(fbin)
-        return cubin
 
     def add_stages(self, stages, options):
         capability = self._parse_arch(options.arch)

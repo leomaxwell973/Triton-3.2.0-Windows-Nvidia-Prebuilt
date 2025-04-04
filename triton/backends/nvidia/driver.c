@@ -1,5 +1,5 @@
 #include "cuda.h"
-#include <dlfcn.h>
+#include <windows.h>
 #include <stdbool.h>
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
@@ -164,24 +164,21 @@ typedef CUresult (*cuTensorMapEncodeTiled_t)(
 #define defineGetFunctionHandle(name, symbolName)                              \
   static symbolName##_t name() {                                               \
     /* Open the shared library */                                              \
-    void *libHandle = dlopen("libcuda.so.1", RTLD_LAZY);                       \
+    HMODULE libHandle = LoadLibraryA("nvcuda.dll");                            \
     if (!libHandle) {                                                          \
-      PyErr_SetString(PyExc_RuntimeError, "Failed to open libcuda.so.1");      \
+      PyErr_SetString(PyExc_RuntimeError, "Failed to open nvcuda.dll");        \
       return NULL;                                                             \
     }                                                                          \
-    /* Clear any existing error */                                             \
-    dlerror();                                                                 \
-    symbolName##_t funcHandle = (symbolName##_t)dlsym(libHandle, #symbolName); \
+    symbolName##_t funcHandle = (symbolName##_t)GetProcAddress(libHandle, #symbolName); \
     /* Check for errors */                                                     \
-    const char *err = dlerror();                                               \
-    if (err) {                                                                 \
+    if (funcHandle == NULL) {                                                  \
       PyErr_SetString(PyExc_RuntimeError,                                      \
-                      "Failed to retrieve " #symbolName " from libcuda.so.1"); \
-      dlclose(libHandle);                                                      \
+                      "Failed to retrieve " #symbolName " from nvcuda.dll");   \
+      FreeLibrary(libHandle);                                                  \
       return NULL;                                                             \
     }                                                                          \
     return funcHandle;                                                         \
-  }
+  }  
 
 defineGetFunctionHandle(getCuOccupancyMaxActiveClustersHandle,
                         cuOccupancyMaxActiveClusters);
