@@ -1,0 +1,39 @@
+Metadata-Version: 2.1
+Name: Triton
+Version: 3.2.0
+Summary: A language and compiler for custom Deep Learning operations
+Home-page: https://github.com/triton-lang/triton/
+Author: Philippe Tillet
+Author-email: phil@openai.com
+Keywords: Compiler,Deep Learning
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Dynamic: author-email
+Dynamic: home-page
+Dynamic: provides-extra
+Dynamic: requires-dist
+Requires-Dist: setuptools>=40.8.0
+Provides-Extra: build
+Requires-Dist: cmake>=3.20; extra == "build"
+Requires-Dist: lit; extra == "build"
+Provides-Extra: tests
+Requires-Dist: autopep8; extra == "tests"
+Requires-Dist: isort; extra == "tests"
+Requires-Dist: numpy; extra == "tests"
+Requires-Dist: pytest; extra == "tests"
+Requires-Dist: pytest-forked; extra == "tests"
+Requires-Dist: pytest-xdist; extra == "tests"
+Requires-Dist: scipy>=1.7.1; extra == "tests"
+Requires-Dist: llnl-hatchet; extra == "tests"
+Provides-Extra: tutoials
+Requires-Dist: matplotlib; extra == "tutoials"
+Requires-Dist: pandas; extra == "tutoials"
+Requires-Dist: tabulate; extra == "tutoials"
+
