@@ -1,1 +1,2 @@
 *.whl filter=lfs diff=lfs merge=lfs -text
+*.pyd,[[:space:]]*.dll filter=lfs diff=lfs merge=lfs -text
