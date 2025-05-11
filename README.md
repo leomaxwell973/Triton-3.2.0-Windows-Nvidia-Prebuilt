@@ -1,4 +1,4 @@
-# **Triton (V3.2.0) Windows Native Build – NVIDIA Exclusive**
+# **Triton (~V3.2.0~ V3.3.0) Windows Native Build – NVIDIA Exclusive**
 UPDATED to 3.3.0
 Note: this is for python 3.10(.6(?)), I was under the false impression i had labled it better, well, my bad. package says so but, i have no intention at this time unless there is actuall demand for other versions iee py311 or py312 etc. as ive not had a need want or reason to use those and so makes no sense to do so at this time for me until i either need it, or some large-scale use case demand is brought to my attention.
 
