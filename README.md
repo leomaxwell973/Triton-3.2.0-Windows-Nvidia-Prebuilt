@@ -3,7 +3,7 @@ UPDATED to 3.3.0
 
 afaik, all errors resolved,
 im too lazy to update everything and figre out how best to restructure
-so... just check the packages. it should work out the box, because it was tested hot off the compiler with no adjustments ut the box.
+so... just check the releases. it should work out the box, because it was tested hot off the compiler with no adjustments ut the box.
 and not the dev/-e/raw build, the whl was tested, same as the one thats posted, and its been used reinstalled retested etc. no issues so far.
 
 # UPDATE BUILD_2:
