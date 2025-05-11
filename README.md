@@ -6,6 +6,8 @@ im too lazy to update everything and figre out how best to restructure
 so... just check the releases. it should work out the box, because it was tested hot off the compiler with no adjustments ut the box.
 and not the dev/-e/raw build, the whl was tested, same as the one thats posted, and its been used reinstalled retested etc. no issues so far.
 
+Note: i added the build folder, pre-build state of course removing builds and vs git folders etc. but BE-AWARE, i get code rage, and often do bad practices like hardcode my own paths, never planed on anyone USING the source code, but figured hey if it compressses and it fits, it will sit. and it fit. so, if its s*it, you've been warned.
+
 # UPDATE BUILD_2:
 - There were issues with how the post-compile code ran as well as some overlooked hardcoded variables and paths that needed to be patched. 
 
