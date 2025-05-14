@@ -78,11 +78,16 @@ This is a **fully native** Triton build for **Windows + NVIDIA**, compiled **wit
 ## **📥 Download & Installation**
 Install via pip:
 ```sh
-pip install https://github.com/leomaxwell973/Triton-3.2.0-Windows-Nvidia-Prebuilt/releases/latest/download/Triton-3.2.0-cp310-cp310-win_amd64.whl
+Py312
+pip install https://github.com/leomaxwell973/Triton-3.3.0-UPDATE_FROM_3.2.0_and_FIXED-Windows-Nvidia-Prebuilt/releases/download/3.3.0_cu128_Py312/triton-3.3.0-cp312-cp312-win_amd64.whl
+
+Py310
+pip install https://github.com/leomaxwell973/Triton-3.3.0-UPDATE_FROM_3.2.0_and_FIXED-Windows-Nvidia-Prebuilt/releases/download/3.3.0/triton-3.3.0-cp310-cp310-win_amd64.whl
+
 ```
 Or from download:
 ```sh
-pip install .\Triton-3.2.0-cp310-cp310-win_amd64.whl
+pip install .\Triton-3.3.0-*-*-*-win_amd64.whl
 ```
 
 ---
