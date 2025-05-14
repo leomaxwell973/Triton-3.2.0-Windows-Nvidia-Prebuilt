@@ -25,11 +25,11 @@ This is a **fully native** Triton build for **Windows + NVIDIA**, compiled **wit
 ---
 
 ## **🔧 Build & Technical Details**
-- **Built for:** **Python 3.10.6**  
+- **Built for:** **Python 3.10.6 !NEW! && for: Python 3.12.10**  
 - **Built on:** **Windows 11 Insiders Dev Build**  
 - **Hardware:** **NVIDIA RTX 3060**  
 - **Compiler:** **MSVC ([v14.43.34808] Microsoft Visual C++20)**  
-- **CUDA Version:** **12.1**  
+- **CUDA Version:** **~12.1~ 12.8 (12.1 might work fine still if thats your installed kit version)**  
 - **LLVM Source:** **Official Triton LLVM (Windows build, hidden in their blob repo)**  
 - **Memory Allocation Tweaks:** **CUPTI modified to use `_aligned_malloc` instead of `aligned_alloc`**  
 - **Optimized for Portability:** **No `.pdbs` or `.lnks` (Debuggers should build from source anyway)**  
@@ -39,7 +39,34 @@ This is a **fully native** Triton build for **Windows + NVIDIA**, compiled **wit
   - **✅ libtriton**  
   - **✅ NVIDIA Backend**  
   - **✅ IR**  
-  - **✅ LLVM**  
+  - **✅ LLVM**
+- **Flags Used:
+```
+C/CXX Flags
+--------------------------
+/GL /GF /Gu /Oi /O2 /O1 /Gy- /Gw /Oi /Zo- /Ob1 /TP
+/arch:AVX2 /favor:AMD64 /vlen
+/openmp:llvm /await:strict /fpcvt:IA /volatile:iso
+/permissive- /homeparams /jumptablerdata  
+/Qspectre-jmp /Qspectre-load-cf /Qspectre-load /Qspectre /Qfast_transcendentals 
+/fp:except /guard:cf
+/DWIN32 /D_WINDOWS /DNDEBUG /D_DISABLE_STRING_ANNOTATION /D_DISABLE_VECTOR_ANNOTATION 
+/utf-8 /nologo /showIncludes /bigobj 
+/Zc:noexceptTypes,templateScope,gotoScope,lambda,preprocessor,inline,forScope
+--------------------------
+Extra(/Zc:):
+C=__STDC__,__cplusplus-
+CXX=__cplusplus-,__STDC__-
+--------------------------
+Link Flags:
+/DEBUG:FASTLINK /OPT:ICF /OPT:REF /MACHINE:X64 /CLRSUPPORTLASTERROR:NO /INCREMENTAL:NO /LTCG /LARGEADDRESSAWARE /GUARD:CF /NOLOGO
+--------------------------
+Static Link Flags:
+/LTCG /MACHINE:X64 /NOLOGO
+--------------------------
+CMAKE_BUILD_TYPE "Release"
+```
+  
 
 ---
 
