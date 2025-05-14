@@ -40,7 +40,8 @@ This is a **fully native** Triton build for **Windows + NVIDIA**, compiled **wit
   - **✅ NVIDIA Backend**  
   - **✅ IR**  
   - **✅ LLVM**
-- **Flags Used:
+  - 
+- ##Flags Used:
 ```
 C/CXX Flags
 --------------------------
