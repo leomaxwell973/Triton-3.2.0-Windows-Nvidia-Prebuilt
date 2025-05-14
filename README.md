@@ -93,7 +93,12 @@ pip install .\Triton-3.3.0-*-*-*-win_amd64.whl
 ---
 
 ## **💬 Final Notes**
-This build is designed **specifically for Windows users with NVIDIA hardware**, eliminating unnecessary dependencies and optimizing performance. If you're developing **AI models on Windows and need a clean Triton setup without AMD bloat or Linux workarounds**, or have had difficulty building triton for Windows, this is **the best version available.**  
+This build is designed **specifically for Windows users with NVIDIA hardware**, eliminating unnecessary dependencies and optimizing performance. If you're developing **AI models on Windows and need a clean Triton setup without AMD bloat or Linux workarounds**, or have had difficulty building triton for Windows, this is **the best version available.**
+
+## Also, I am aware of the "Windows" branch of Triton.
+This version, last I checked, is for bypassing apps with a linux/unix/posix focus platform, but have nothing that makes them strictly so, and thus, had triton as a no-worry reqirement on a supported platform sich as them, but no regard for windows, despite being compatible for them regardless. Or such case uses.
+It's a shell of triton, vaporware, that provides only token comparions of features or gpu enhancment compared to the full version of linux.
+THIS REPO - Is such a full version, with llvm and nothing taken out as long as its not involving AMD GPUs.
 
 🔥 **Enjoy the cleanest, fastest Triton experience on Windows!** 🚀😎
 
