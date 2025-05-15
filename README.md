@@ -7,6 +7,49 @@ Well that didn't take long, this repo is now/for-now Py310 and Py312!
 # Check Releases for the latest most likely bug free version!
 ## Broken versions will be labeled
 
+# UPDATE #
+Found it broke for alot of others, if not all, but mine broke too thankfully and could track it down, after a VS update.
+Found I had a custom file I used and dind't realize was part of the program working, you just need to add this to your MSVC's include folder, or any include path on your env that's active or always included.
+
+so the short and sweet is add the CODE BLOCK as dlfcn.h to:
+
+"C:\ProgramFiles\MicrosoftVisualStudio\2022\Community\VC\Tools\MSVC\14.44.35207\include"
+As an exmple, you may have a different version/path/etc.
+For anyone needing more... make a txt file, paste codeblock in text file, save, look at text file from outside and rename it to dlfcn.h DONE!
+
+CODE BLOCK for dlfcn.h
+```
+//dlfcn.h
+
+#ifndef WIN_DLFCN_H
+
+#define WIN_DLFCN_H
+
+#include <windows.h>
+
+// Define POSIX-like handles
+
+#define RTLD_LAZY 0
+
+#define RTLD_NOW 0 // No real equivalent, Windows always resolves symbols
+
+#define RTLD_LOCAL 0 // Windows handles this by default
+
+#define RTLD_GLOBAL 0 // No direct equivalent
+
+// Windows replacements for libdl functions
+
+#define dlopen(path, mode) ((void*)LoadLibraryA(path))
+
+#define dlsym(handle, symbol) (GetProcAddress((HMODULE)(handle), (symbol)))
+
+#define dlclose(handle) (FreeLibrary((HMODULE)(handle)), 0)
+
+#define dlerror() ("dlopen/dlsym/dlclose error handling not implemented")
+
+#endif // WIN_DLFCN_H
+```
+
 ---------------------------------------------------
 
 ### **🚀 Fully Native Windows Build (No VMs, No Linux Subsystems, No Workarounds)**
