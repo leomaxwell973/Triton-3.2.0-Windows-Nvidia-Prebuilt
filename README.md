@@ -9,7 +9,7 @@ Well that didn't take long, this repo is now/for-now Py310 and Py312!
 
 # UPDATE #
 Found it broke for alot of others, if not all, but mine broke too thankfully and could track it down, after a VS update.
-Found I had a custom file I used and dind't realize was part of the program working, you just need to add this to your MSVC's include folder, or any include path on your env that's active or always included.
+Found I had a custom file I used and didn't realize was part of the program working, you just need to add this to your MSVC's include folder, or any include path on your env that's active or always included.
 
 so the short and sweet is add the CODE BLOCK as dlfcn.h to:
 
